@@ -13,12 +13,30 @@
 // mBaaSの初期化
 var ncmb = new NCMB(this.APPLICATION_KEY, this.CLIENT_KEY);
 // タイマー設定
-var countTimer = 13;
+var countTimer = 63;
 // タップ回数カウンター
 var counter = 0;
 // 「tapFlag」的のタップ可否設定
 var tapFlag = false;
-
+//目標タップ数
+var mokuhyou = 0;
+//目標の入力
+function enterData() {
+      let uTdata = new UTdata();
+      let value = parseInt($("#data").val());
+      uTdata.set(key, value)
+        .save()
+        .then(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-success");
+          $("#display").html("enter success");
+        })
+        .catch(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("enter fail");
+        })
+    }
 // 「Start」ボタン押下時の処理
 function startGame() {
   // ボタンの無効化
@@ -29,7 +47,7 @@ function startGame() {
   this.counter = 0;
   $("#list-page strong").html(String(0));
   // タイマーリセット
-  this.countTimer = 13;
+  this.countTimer = 63;
   // タイマーを起動
   countTime(countTimer);
 }
@@ -60,10 +78,10 @@ function saveScore(name, score) {
 // タイマー
 function countTime(time) {
   if (time > 0) {
-    if (time >= 11) {
+    if (time >= 61) {
       this.tapFlag = false;
-      $("#list-page p").html(String(time - 10));
-    } else if (time == 10) {
+      $("#list-page p").html(String(time - 60));
+    } else if (time == 60) {
       this.tapFlag = true;
       $("#list-page p").html("スタート！");
     } else {
@@ -83,13 +101,13 @@ function countTime(time) {
 // 名前入力アラートの表示
 function imputName(count) {
   // 入力アラートを表示
-  var name = window.prompt("名前を入力してください", "");
+  var name = window.prompt("調査場所を入力してください", "");
   if (name == null || name == "") {
     $("#list-page p").html("保存がキャンセルされました");
   } else {
     // スコアと入力した名前を保存
     saveScore(name, count);
-    $("#list-page p").html(name + "さんのスコアは" + String(count) + "連打でした");
+    $("#list-page p").html(name + "の交通量は" + String(count) + "台でした");
   }
   // ボタンの有効化
   document.gameForm.start.disabled = false;

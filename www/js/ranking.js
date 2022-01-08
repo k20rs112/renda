@@ -51,10 +51,10 @@ function setData(array) {
   for (i = 0; i < array.length; i++) {
     // 名前の設定
     var name = table.rows[i].cells[1];
-    name.innerHTML = array[i].name + "さん";
+    name.innerHTML = array[i].name + "";
     // スコアの設定
     var score = table.rows[i].cells[2];
-    score.innerHTML = array[i].score + "連打";
+    score.innerHTML = array[i].score + "台";
   }
 }
 
